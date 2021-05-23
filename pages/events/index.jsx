@@ -14,7 +14,13 @@ export default function EventsAll({ events }) {
   };
 
   return (
-    <Layout>
+    <Layout head={(
+      <>
+        <title>All NextJS events</title>
+        <meta name="description" content="All events" />
+      </>
+    )}
+    >
       <EventsSearch onSearch={onSearch} />
       <EventList items={events} />
     </Layout>

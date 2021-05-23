@@ -15,7 +15,13 @@ export default function EventsById({ event }) {
   }
 
   return (
-    <Layout>
+    <Layout head={(
+      <>
+        <title>{event.title}</title>
+        <meta name="description" content={event.description} />
+      </>
+    )}
+    >
       <EventSummary title={event.title} />
       <EventLogistics
         date={event.date}

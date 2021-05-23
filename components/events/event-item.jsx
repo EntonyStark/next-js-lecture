@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import Image from 'next/image';
 
 import { Button } from 'components/button';
 import DateIcon from 'components/icons/date-icon';
@@ -17,7 +18,7 @@ export const EventItem = ({
 
   return (
     <li className={styles.item}>
-      <img src={`/${image}`} alt={id} />
+      <Image src={`/${image}`} alt={id} width={250} height={160} />
       <div className={styles.content}>
         <div className={styles.summary}>
           <h2>{title}</h2>
