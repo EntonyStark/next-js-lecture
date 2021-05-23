@@ -1,13 +1,32 @@
-import { getFeaturedEvents } from 'dummy-data';
+import { useRouter } from 'next/router';
 
 import { EventList } from 'components/events/event-list';
 import { Layout } from 'components/layout';
+import { EventsSearch } from 'components/events/events-search';
 
-export default function Events() {
-  const fEvents = getFeaturedEvents();
+import { getAllEvents } from 'utils/actions';
+
+export default function EventsAll({ events }) {
+  const router = useRouter();
+
+  const onSearch = (selectedYear, selectedMonth) => {
+    router.push(`/events/${selectedYear}/${selectedMonth}`);
+  };
+
   return (
     <Layout>
-      <EventList items={fEvents} />
+      <EventsSearch onSearch={onSearch} />
+      <EventList items={events} />
     </Layout>
   );
 }
+
+export const getStaticProps = async () => {
+  const events = await getAllEvents();
+  return {
+    props: {
+      events,
+    },
+    revalidate: 60, // seconds
+  };
+};

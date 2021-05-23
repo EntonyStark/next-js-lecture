@@ -1,45 +1,52 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-
 import { EventSummary } from 'components/event-detail/event-summary';
 import { EventLogistics } from 'components/event-detail/event-logistics';
 import { EventContent } from 'components/event-detail/event-content';
 import { Layout } from 'components/layout';
 
-import { getEventById } from 'dummy-data';
+import { getEventById, getFeaturedEvents } from 'utils/actions';
 
-export default function EventsById() {
-  const [event, setEvent] = useState(null);
-
-  const router = useRouter();
-
-  useEffect(() => {
-    if (router.query.id) {
-      const currentEvent = getEventById(router.query.id);
-      setEvent(currentEvent);
-    }
-  }, [router.query]);
+export default function EventsById({ event }) {
+  if (!event) {
+    return (
+      <div className="center">
+        <p>Loading ...</p>
+      </div>
+    );
+  }
 
   return (
     <Layout>
-      {event ? (
-        <>
-          <EventSummary title={event.title} />
-          <EventLogistics
-            date={event.date}
-            address={event.location}
-            image={event.image}
-            imageAlt={event.title}
-          />
-          <EventContent>
-            <p>{event.description}</p>
-          </EventContent>
-        </>
-      ) : (
-        <div>
-          <p>No event found!</p>
-        </div>
-      )}
+      <EventSummary title={event.title} />
+      <EventLogistics
+        date={event.date}
+        address={event.location}
+        image={event.image}
+        imageAlt={event.title}
+      />
+      <EventContent>
+        <p>{event.description}</p>
+      </EventContent>
     </Layout>
   );
 }
+
+export const getStaticProps = async ({ params }) => {
+  const event = await getEventById(params.id);
+
+  if (!event) return { notFound: true }; // if we don't have data
+
+  return {
+    props: {
+      event,
+    },
+    revalidate: 30, // seconds
+  };
+};
+
+export const getStaticPaths = async () => {
+  const allEvents = await getFeaturedEvents();
+  return {
+    paths: allEvents.map((e) => ({ params: { id: e.id } })),
+    fallback: true, // we can have a more pages than we have on pre-generated time
+  };
+};

@@ -1,19 +1,22 @@
-import Link from 'next/link';
+import { getFeaturedEvents } from 'utils/actions';
 
-export default function Home() {
+import { EventList } from 'components/events/event-list';
+import { Layout } from 'components/layout';
+
+export default function HomePage({ events }) {
   return (
-    <div>
-      <ul>
-        <li>
-          <Link href="/about">About</Link>
-        </li>
-        <li>
-          <Link href="/posts/23/32">post page</Link>
-        </li>
-        <li>
-          <Link href="/portfolio/23">portfolio page</Link>
-        </li>
-      </ul>
-    </div>
+    <Layout>
+      <EventList items={events} />
+    </Layout>
   );
 }
+
+export const getStaticProps = async () => {
+  const events = await getFeaturedEvents();
+  return {
+    props: {
+      events,
+    },
+    revalidate: 1800, // seconds
+  };
+};
