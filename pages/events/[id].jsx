@@ -2,6 +2,7 @@ import { EventSummary } from 'components/event-detail/event-summary';
 import { EventLogistics } from 'components/event-detail/event-logistics';
 import { EventContent } from 'components/event-detail/event-content';
 import { Layout } from 'components/layout';
+import { Comments } from 'components/inputs/comments';
 
 import { getEventById, getFeaturedEvents } from 'utils/actions';
 
@@ -32,6 +33,8 @@ export default function EventsById({ event }) {
       <EventContent>
         <p>{event.description}</p>
       </EventContent>
+
+      <Comments eventId={event.id} />
     </Layout>
   );
 }

@@ -1,6 +1,7 @@
 import { EventList } from 'components/events/event-list';
 import { Layout } from 'components/layout';
 import { getFeaturedEvents } from 'utils/actions';
+import { NewsletterRegistration } from 'components/inputs/newsletter-registration';
 
 export default function HomePage({ events }) {
   return (
@@ -11,6 +12,7 @@ export default function HomePage({ events }) {
       </>
     )}
     >
+      <NewsletterRegistration />
       <EventList items={events} />
     </Layout>
   );
