@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect } from 'react';
 
 import classes from './comment-list.module.css';
 
@@ -27,18 +27,16 @@ export const CommentList = ({ eventId }) => {
 
   return (
     <ul className={classes.comments}>
-      <li>
-        {comments.map((el) => (
-          <Fragment key={el._id}>
-            <p>{el.text}</p>
-            <div>
-              By
-              {' '}
-              <address>{el.name}</address>
-            </div>
-          </Fragment>
-        ))}
-      </li>
+      {comments.map((el) => (
+        <li key={el._id}>
+          <p>{el.text}</p>
+          <div>
+            By
+            {' '}
+            <address>{el.name}</address>
+          </div>
+        </li>
+      ))}
     </ul>
   );
 };
