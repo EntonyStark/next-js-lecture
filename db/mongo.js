@@ -1,1 +1,1 @@
-export const url = 'mongodb+srv://entony:cKtzsd71dQYnUu95@events-db.wp08e.mongodb.net/events?retryWrites=true&w=majority';
+export const url = 'mongodb+srv://tony:7sJsBaBczOTYwtN8@test-cluster.6boug.mongodb.net/nextjs?retryWrites=true&w=majority';

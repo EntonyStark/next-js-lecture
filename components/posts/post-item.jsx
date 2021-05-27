@@ -6,15 +6,15 @@ import { getHumanReadableDate } from 'utils/humanReadableDate';
 import styles from './post-item.module.css';
 
 export const PostItem = ({
-  title, image, excerpt, date, id,
+  title, image, excerpt, date, slug,
 }) => {
   const humanReadableDate = useMemo(() => getHumanReadableDate(date), [date]);
   return (
     <li className={styles.post}>
-      <Link href={`/posts/${id}`}>
+      <Link href={`/posts/${slug}`}>
         <a>
           <div className={styles.image}>
-            <Image src={`/images/posts/${id}/${image}`} alt={id} width={300} height={200} layout="responsive" />
+            <Image src={`/images/posts/${slug}/${image}`} alt={slug} width={300} height={200} layout="responsive" />
           </div>
           <div className={styles.content}>
             <h3>{title}</h3>

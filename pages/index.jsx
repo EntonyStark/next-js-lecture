@@ -2,17 +2,9 @@ import { Layout } from 'components/layout';
 import { Hero } from 'components/home-page/hero';
 import { FeaturedPosts } from 'components/home-page/featured-posts';
 
-const arr = [
-  {
-    title: 'Getting started with Nextjs',
-    image: 'getting-started-nextjs.png',
-    excerpt: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae similique cum, itaque aliquid porro nisi. ',
-    date: new Date(),
-    id: 'getting-started',
-  },
-];
+import { getAllFeaturedPosts } from 'utils/post-util';
 
-export default function HomePage() {
+export default function HomePage({ posts }) {
   return (
     <Layout head={(
       <>
@@ -22,17 +14,17 @@ export default function HomePage() {
     )}
     >
       <Hero />
-      <FeaturedPosts posts={arr} />
+      <FeaturedPosts posts={posts} />
     </Layout>
   );
 }
 
-// export const getStaticProps = async () => {
-//   const events = await getFeaturedEvents();
-//   return {
-//     props: {
-//       events,
-//     },
-//     revalidate: 1800, // seconds
-//   };
-// };
+export const getStaticProps = async () => {
+  const posts = await getAllFeaturedPosts();
+  return {
+    props: {
+      posts,
+    },
+    // revalidate: 1800, // seconds
+  };
+};
