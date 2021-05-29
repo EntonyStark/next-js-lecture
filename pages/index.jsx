@@ -1,19 +1,30 @@
-import Link from 'next/link';
+import { Layout } from 'components/layout';
+import { Hero } from 'components/home-page/hero';
+import { FeaturedPosts } from 'components/home-page/featured-posts';
 
-export default function Home() {
+import { getAllFeaturedPosts } from 'utils/post-util';
+
+export default function HomePage({ posts }) {
   return (
-    <div>
-      <ul>
-        <li>
-          <Link href="/about">About</Link>
-        </li>
-        <li>
-          <Link href="/posts/23/32">post page</Link>
-        </li>
-        <li>
-          <Link href="/portfolio/23">portfolio page</Link>
-        </li>
-      </ul>
-    </div>
+    <Layout head={(
+      <>
+        <title>Tony&apos;s blog</title>
+        <meta name="description" content="Blog about everything" />
+      </>
+    )}
+    >
+      <Hero />
+      <FeaturedPosts posts={posts} />
+    </Layout>
   );
 }
+
+export const getStaticProps = async () => {
+  const posts = await getAllFeaturedPosts();
+  return {
+    props: {
+      posts,
+    },
+    // revalidate: 1800, // seconds
+  };
+};
