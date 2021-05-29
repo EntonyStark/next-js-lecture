@@ -1,5 +1,6 @@
 import { MongoClient } from 'mongodb';
-import { url } from 'db/mongo';
+
+const url = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@test-cluster.6boug.mongodb.net/${process.env.mongodb_name}?retryWrites=true&w=majority`;
 
 export default async (req, res) => {
   if (req.method === 'POST') {
