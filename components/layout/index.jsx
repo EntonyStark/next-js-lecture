@@ -1,14 +1,12 @@
-import Head from 'next/head';
+import MainNavigation from './main-navigation';
 
-import { Navigation } from './navigation';
+function Layout({ children }) {
+  return (
+    <>
+      <MainNavigation />
+      <main>{children}</main>
+    </>
+  );
+}
 
-export const Layout = ({ children, head }) => (
-  <>
-    <Head>
-      {head}
-    </Head>
-
-    <Navigation />
-    <main>{children}</main>
-  </>
-);
+export default Layout;
